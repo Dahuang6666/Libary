@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lifeng.Mapper.UserMapper">
+    <select id="searchBooksByConditions" parameterType="map" resultType="com.lifeng.Pojo.bookDTO">
+        SELECT
+        b.id,
+        b.name,
+        b.author,
+        b.count,
+        c.name AS categoryName
+        FROM
+        books b
+        JOIN
+        book_category c ON b.categoryId = c.id
+        <where>
+            b.count > 0
+            <if test="name != null and name != ''">
+                AND b.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="author != null and author != ''">
+                AND b.author LIKE CONCAT('%', #{author}, '%')
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                AND c.name LIKE CONCAT('%', #{categoryName}, '%')
+            </if>
+        </where>
+    </select>
+    <insert id="addBorrower" parameterType="com.lifeng.Pojo.BorrowRequests">
+        INSERT INTO borrow_requests (userName, bookName, status, requestTime, message)
+        VALUES (#{userName}, #{bookName}, #{status}, #{requestTime}, #{message});
+    </insert>
+</mapper>
