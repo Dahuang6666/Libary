@@ -90,8 +90,8 @@ export default {
   },
   data(){
     return{
-      username: this.$route.query.username, // 获取用户名
-      permissions: this.$route.query.permissions // 获取角色
+      username: this.$route.query.username,
+      permissions: this.$route.query.permissions
     }
   },
   methods:{

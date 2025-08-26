@@ -13,7 +13,6 @@ public class EmailController {
 
     @Autowired
     private EmailService emailService;
-
     // 临时存储验证码和用户名
     private final Map<String, String> verificationCodes = new HashMap<>();
 

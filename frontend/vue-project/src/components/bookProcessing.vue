@@ -193,17 +193,17 @@ export default {
       searchAuthor: "",
       searchCategory: "",
       loading: false,
-      dialogVisible: false, // 控制弹窗显示
-      addBookDialogVisible: false, // 控制添加书籍弹窗显示
+      dialogVisible: false,
+      addBookDialogVisible: false,
       currentBook: {
-        categoryId: null,
+        categoryId: 0,
         name: '',
         author: '',
         count: '',
         id: '',
       }, // 存储当前编辑的书籍
       newBook: {
-        categoryId: null,
+        categoryId: 0,
         name: '',
         author: '',
         count: '',
@@ -240,7 +240,20 @@ export default {
 
     // 修改书籍信息
     handleEdit(row) {
-      this.currentBook = { ...row }; // 复制当前行的数据
+      // 根据 categoryName 查找对应的 categoryId
+      const category = this.categories.find(cat => cat.name === row.categoryName);
+      const categoryId = category ? category.id : null;
+
+      // 构造 currentBook，包含正确的 categoryId
+      this.currentBook = {
+        id: row.id,
+        name: row.name,
+        author: row.author,
+        count: row.count,
+        categoryId: categoryId,  // ✅ 正确的分类 ID
+      };
+
+      console.log('currentBook.categoryId:', this.currentBook.categoryId);
       this.dialogVisible = true; // 打开弹窗
     },
 

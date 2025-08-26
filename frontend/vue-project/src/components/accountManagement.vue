@@ -23,7 +23,7 @@
       </el-table-column>
     </el-table>
 
-    <!-- 修改账户弹窗 -->
+
     <el-dialog v-model="updateDialogVisible" width="400px" @close="resetUpdateForm">
       <div class="dialog-content">
         <h3 class="dialog-title">修改账户</h3>
@@ -112,7 +112,7 @@ export default {
       try {
         const response = await axios.post("http://localhost:8080/admin/password", {
           id: account.id,
-          permissions: account.permissions, // 附带权限参数
+          permissions: account.permissions,
         });
         this.$message.success("密码已重置");
       } catch (error) {
